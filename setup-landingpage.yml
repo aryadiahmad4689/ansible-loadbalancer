@@ -1,8 +1,13 @@
 - name: Setup Landing Page
-  hosts: all
+  hosts: landingpage
   become: yes
+  vars:
+    db_username: "syamsull"
+    db_password: "cobaaja"
+    db_name: "db_landing_page"
   roles: 
     - update-os
     - landingpage
+    - setup-mariadb
 
 #ansible-playbook -i inventory setup-landingpage.yml

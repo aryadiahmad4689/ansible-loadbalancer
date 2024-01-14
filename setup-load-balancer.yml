@@ -1,12 +1,12 @@
 - name: Setup Landing Page
-  hosts: load-balancer
+  hosts: loadbalancer
   become: yes
   vars:
-    domain: landingpage.jokoss.asia
-    server: 
-      - host: 34.170.245.50
+    domain: 34.41.141.71
+    server:
+      - host: 34.136.213.252
         name: landingpage-01
-      - host: 34.29.5.97
+      - host: 34.28.16.13
         name: landingpage-02
   roles: 
     - update-os

@@ -2,7 +2,7 @@ server {
 	listen 80;
 	root /var/www/landingpage.jokoss.asia/html;
 	index index.php index.html index.htm index.nginx-debian.html;
-	server_name landingpage.jokoss.asia www.landingpage.jokoss.asia;
+	server_name 34.41.141.71;
 	access_log /var/log/nginx/example.access.log;
 	error_log /var/log/nginx/example.error.log;
 
@@ -12,7 +12,7 @@ server {
 
 	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
-		fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
 	}
 
 	location ~ /\.ht {
