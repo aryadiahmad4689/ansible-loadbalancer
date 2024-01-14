@@ -1,0 +1,15 @@
+- name: Setup Landing Page
+  hosts: load-balancer
+  become: yes
+  vars:
+    domain: landingpage.jokoss.asia
+    server: 
+      - host: 34.170.245.50
+        name: landingpage-01
+      - host: 34.29.5.97
+        name: landingpage-02
+  roles: 
+    - update-os
+    - load-balancer
+
+#ansible-playbook -i inventory setup-load-balancer.yml

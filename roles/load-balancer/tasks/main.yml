@@ -1,0 +1,27 @@
+- name: install requirement software
+  apt:
+    name: nginx
+    state: present
+
+- name: delete default nginx sites
+  file: 
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/nginx/sites-available/default
+    - /etc/nginx/sites-enabled/default
+
+- name: copy nginx configuration
+  template:
+    src: templates/default.j2
+    dest: /etc/nginx/sites-available/default
+
+- name: create symlink nginx configuration
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+  notify: 
+    - reload-nginx
+
+

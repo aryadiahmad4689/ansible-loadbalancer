@@ -1,0 +1,8 @@
+- name: Setup Landing Page
+  hosts: all
+  become: yes
+  roles: 
+    - update-os
+    - landingpage
+
+#ansible-playbook -i inventory setup-landingpage.yml

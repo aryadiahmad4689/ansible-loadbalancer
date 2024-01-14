@@ -1,0 +1,54 @@
+- name: install requirement software
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - nginx
+    - git
+    - php-fpm
+    - php-gd
+    - php-zip
+    - php-mysql
+
+- name: create folder for landingpage
+  ansible.builtin.file:
+    path: /var/www/landingpage.jokoss.asia/html
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes
+
+- name: delete default nginx sites
+  file: 
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/nginx/sites-available/default
+    - /etc/nginx/sites-enabled/default
+
+- name: copy nginx configuration
+  copy:
+    src: files/default
+    dest: /etc/nginx/sites-available/default
+
+- name: create symlink nginx configuration
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+  notify: 
+    - reload-nginx
+
+- name: git config safe directory
+  shell: git config --global --add safe.directory /var/www/landingpage.jokoss.asia/html
+
+- name: git clone from repo
+  ansible.builtin.git:
+    repo: https://github.com/adhithia21/sample-php.git
+    dest: /var/www/landingpage.jokoss.asia/html
+    force: yes
+
+- name: template database config
+  ansible.builtin.template:
+    src: templates/database.php.j2
+    dest: /var/www/landingpage.jokoss.asia/html/application/config/database.php

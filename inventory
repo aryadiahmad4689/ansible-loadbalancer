@@ -1,0 +1,12 @@
+[landingpage]
+34.170.245.50
+34.29.5.97
+
+[load-balancer]
+34.42.184.13
+
+[database]
+34.66.224.116
+
+[all:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=accept-new'

@@ -1,0 +1,9 @@
+- name: update linux os ubuntu and debian
+  apt:
+    update_cache: true
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: update linux os centos and redhat
+  yum:
+    cacheonly: true
+  when: ansible_distribution == 'Centos' or ansible_distribution == 'RedHat'
