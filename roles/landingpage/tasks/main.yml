@@ -52,3 +52,12 @@
   ansible.builtin.template:
     src: templates/database.php.j2
     dest: /var/www/landingpage.jokoss.asia/html/application/config/database.php
+
+- name: Configure large_client_header_buffers in Nginx
+  ansible.builtin.lineinfile:
+        path: /etc/nginx/nginx.conf
+        regexp: '^\s*large_client_header_buffers'
+        line: '    large_client_header_buffers 4 16k;'
+        insertafter: 'http {'
+        create: yes
+
